@@ -8,7 +8,7 @@ import { LinkWithChannel } from "@/ui/atoms/LinkWithChannel";
 import emptyCart from "@/assets/images/emptyBag.svg";
 
 export const metadata = {
-	title: "Shopping Cart · Saleor Storefront example",
+	title: "Shopping Cart · Tobay Stores",
 };
 
 export default async function Page({ params }: { params: { channel: string } }) {

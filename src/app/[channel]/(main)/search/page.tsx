@@ -13,8 +13,8 @@ import Filters from "./filters";
 import FiltersMob from "./filters-mob";
 
 export const metadata = {
-	title: "Search products · Saleor Storefront example",
-	description: "Search products in Saleor Storefront example",
+	title: "Search products · Tobay Stores",
+	description: "Search products in Tobay Stores",
 };
 
 export default async function Page({
