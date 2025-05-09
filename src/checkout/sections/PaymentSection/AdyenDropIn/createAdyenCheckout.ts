@@ -25,7 +25,7 @@ export type PostAdyenDropInPaymentsResponse = {
 
 export type AdyenCheckoutInstanceState = {
 	isValid?: boolean;
-	data: CardElementData & Record<string, unknown>;
+	data: CardElementData & Record<string, any>;
 };
 export type AdyenCheckoutInstanceOnSubmit = (
 	state: AdyenCheckoutInstanceState,
@@ -57,10 +57,10 @@ export function createAdyenCheckoutInstance(
 			id: adyenSessionResponse.session.id,
 			sessionData: adyenSessionResponse.session.sessionData,
 		},
-		onPaymentCompleted: (result: AdyenApiPaymentResponse, component: DropinElement) => {
+		onPaymentCompleted: (result: any, component: any) => {
 			console.info(result, component);
 		},
-		onError: (error: Error, component: DropinElement) => {
+		onError: (error: any, component: any) => {
 			console.error(error.name, error.message, error.stack, component);
 		},
 		onSubmit,

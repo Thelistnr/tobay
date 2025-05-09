@@ -37,11 +37,11 @@ interface UseFormSubmitProps<
 	onError?: (
 		props: CallbackProps<TData> & {
 			errors: ApiErrors<TData, TErrorCodes>;
-			customErrors: unknown[];
+			customErrors: any[];
 			graphqlErrors: CombinedError[];
 		},
 	) => void;
-	extractCustomErrors?: (data: MutationData<TMutationFn>) => unknown[];
+	extractCustomErrors?: (data: MutationData<TMutationFn>) => any[];
 	onStart?: (props: CallbackProps<TData>) => void;
 	shouldAbort?:
 		| ((props: CallbackProps<TData>) => Promise<boolean>)

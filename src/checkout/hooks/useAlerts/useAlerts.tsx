@@ -15,23 +15,19 @@ import { useGetParsedErrors } from "@/checkout/hooks/useGetParsedErrors";
 import { apiErrorMessages } from "@/checkout/sections/PaymentSection/errorMessages";
 
 function useAlerts(scope: CheckoutScope): {
-	showErrors: (errors: ApiErrors<unknown>) => void;
+	showErrors: (errors: ApiErrors<any>) => void;
 	showCustomErrors: (errors: CustomError[]) => void;
 	showSuccess: (message: string) => void;
 };
 
 function useAlerts(): {
-	showErrors: (errors: ApiErrors<unknown>, scope: CheckoutScope) => void;
+	showErrors: (errors: ApiErrors<any>, scope: CheckoutScope) => void;
 	showCustomErrors: (errors: CustomError[], scope?: CheckoutScope) => void;
 	showSuccess: (message: string) => void;
 };
 
-function useAlerts(globalScope?: CheckoutScope): {
-	showErrors: (errors: ApiErrors<unknown>, scope?: CheckoutScope) => void;
-	showCustomErrors: (errors: CustomError[], scope?: CheckoutScope) => void;
-	showSuccess: (message: string) => void;
-} {
-	const { getParsedApiErrors } = useGetParsedErrors<unknown>();
+function useAlerts(globalScope?: any): any {
+	const { getParsedApiErrors } = useGetParsedErrors<any>();
 
 	const getMessageKey = ({ scope, field, code }: AlertErrorData, { error } = { error: false }) => {
 		const keyBase = `${scope}-${field}-${code}`;
@@ -82,7 +78,7 @@ function useAlerts(globalScope?: CheckoutScope): {
 	);
 
 	const showErrors = useCallback(
-		(errors: ApiErrors<unknown>, scope: CheckoutScope = globalScope) =>
+		(errors: ApiErrors<any>, scope: CheckoutScope = globalScope) =>
 			getParsedApiErrors(errors).forEach((error) => showDefaultAlert({ ...error, scope } as AlertErrorData)),
 		[getParsedApiErrors, showDefaultAlert, globalScope],
 	);

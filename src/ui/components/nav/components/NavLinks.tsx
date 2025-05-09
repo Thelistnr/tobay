@@ -1,10 +1,14 @@
 // import Link from "next/link";
 // import { NavLink } from "./NavLink";
-import Image from "next/image";
-import { CategoryDropdown } from "./CategoryDropdown";
-import { LinkWithChannel } from "@/ui/atoms/LinkWithChannel";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
 import { executeGraphQL } from "@/lib/graphql";
 import { MenuGetBySlugDocument } from "@/gql/graphql";
+import CategoryDropdown from "./CategoryDropdown";
+import { LinkWithChannel } from "@/ui/atoms/LinkWithChannel";
+import Image from "next/image";
 import bagImage from "@/assets/images/bagPicture.png";
 
 export const NavLinks = async ({ channel }: { channel: string }) => {

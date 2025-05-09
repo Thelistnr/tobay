@@ -6,6 +6,7 @@ import xss from "xss";
 import { invariant } from "ts-invariant";
 import { type WithContext, type Product } from "schema-dts";
 import { AddButton } from "./AddButton";
+import QuantitySelector from "./QuantitySelector";
 import { VariantSelector } from "@/ui/components/VariantSelector";
 import { ProductImageWrapper } from "@/ui/atoms/ProductImageWrapper";
 import { executeGraphQL } from "@/lib/graphql";
@@ -13,7 +14,6 @@ import { formatMoney, formatMoneyRange } from "@/lib/utils";
 import { CheckoutAddLineDocument, ProductDetailsDocument, ProductListDocument } from "@/gql/graphql";
 import * as Checkout from "@/lib/checkout";
 import { AvailabilityMessage } from "@/ui/components/AvailabilityMessage";
-import QuantitySelector from "./QuantitySelector";
 
 export async function generateMetadata(
 	{
@@ -217,6 +217,8 @@ export default async function Page({
 								channel={params.channel}
 							/>
 						)}
+
+						{/* TODO: make quantity selector work */}
 						<div className="flex flex-col gap-2">
 							<QuantitySelector min={1} max={selectedVariant?.quantityAvailable ?? 10} />
 							<input type="hidden" name="quantity" />

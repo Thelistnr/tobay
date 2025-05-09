@@ -1,4 +1,8 @@
 // import Link from "next/link";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
 import { LinkWithChannel } from "../atoms/LinkWithChannel";
 // import { ChannelSelect } from "./ChannelSelect";
@@ -8,19 +12,6 @@ import logo from "../../app/Tobay Icon.svg";
 import fbIcon from "@/assets/icons/fbIcon.svg";
 import twIcon from "@/assets/icons/twIcon.svg";
 import igIcon from "@/assets/icons/igIcon.svg";
-
-interface SocialLink {
-	href: string;
-	icon: string;
-	alt: string;
-}
-
-const socialLinks: SocialLink[] = [
-	{ href: "", icon: fbIcon, alt: "Facebook" },
-	{ href: "", icon: twIcon, alt: "Twitter" },
-	{ href: "", icon: igIcon, alt: "Instagram" },
-];
-
 // export async function Footer({ channel }: { channel: string }) {
 export async function Footer() {
 	// const footerLinks = await executeGraphQL(MenuGetBySlugDocument, {
@@ -121,11 +112,15 @@ export async function Footer() {
 				<p className="text-sm text-[#98A2B3]">© 2025 tobay. All rights reserved.</p>
 
 				<div className="flex items-center gap-6">
-					{socialLinks.map((link) => (
-						<a key={link.alt} href={link.href}>
-							<Image src={link.icon} alt={link.alt} width={24} height={24} className="" />
-						</a>
-					))}
+					<a href="">
+						<Image src={fbIcon} alt="logo" width={24} height={24} className="" />
+					</a>
+					<a href="">
+						<Image src={twIcon} alt="logo" width={24} height={24} className="" />
+					</a>
+					<a href="">
+						<Image src={igIcon} alt="logo" width={24} height={24} className="" />
+					</a>
 				</div>
 			</div>
 		</footer>

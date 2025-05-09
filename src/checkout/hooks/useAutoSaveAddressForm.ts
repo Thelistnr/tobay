@@ -18,7 +18,6 @@ import {
 	type CheckoutUpdateStateScope,
 	useCheckoutUpdateStateChange,
 } from "@/checkout/state/updateStateStore";
-import { type FormEvent } from "react";
 
 export type AutoSaveAddressFormData = Partial<AddressFormData>;
 
@@ -27,9 +26,7 @@ export const useAutoSaveAddressForm = ({
 	...formProps
 }: FormProps<AutoSaveAddressFormData> & {
 	scope: CheckoutUpdateStateScope;
-}): UseFormReturn<AutoSaveAddressFormData> & {
-	handleSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
-} => {
+}): UseFormReturn<AutoSaveAddressFormData> & { handleSubmit: (event: any) => Promise<void> } => {
 	const { setCheckoutUpdateState } = useCheckoutUpdateStateChange(scope);
 	const { initialValues, onSubmit } = formProps;
 	const { setCountryCode, validationSchema } = useAddressFormSchema(initialValues.countryCode);

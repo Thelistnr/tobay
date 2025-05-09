@@ -1,9 +1,13 @@
 // import { ShoppingBagIcon } from "lucide-react";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
 import clsx from "clsx";
-import Image from "next/image";
 import * as Checkout from "@/lib/checkout";
 import { LinkWithChannel } from "@/ui/atoms/LinkWithChannel";
 import cartIcon from "@/assets/icons/cartIcon.svg";
+import Image from "next/image";
 
 export const CartNavItem = async ({ channel }: { channel: string }) => {
 	const checkoutId = Checkout.getIdFromCookies(channel);

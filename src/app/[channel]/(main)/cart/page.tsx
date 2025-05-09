@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import Image from "next/image";
 import { CheckoutLink } from "./CheckoutLink";
 import { DeleteLineButton } from "./DeleteLineButton";
@@ -6,51 +7,14 @@ import { formatMoney, getHrefForVariant } from "@/lib/utils";
 import { LinkWithChannel } from "@/ui/atoms/LinkWithChannel";
 import emptyCart from "@/assets/images/emptyBag.svg";
 
-interface Money {
-	amount: number;
-	currency: string;
-}
-
-interface Price {
-	gross: Money;
-}
-
-interface ProductVariant {
-	id: string;
-	name: string;
-	product: {
-		name: string;
-		slug: string;
-		thumbnail?: {
-			url: string;
-			alt: string | null;
-		};
-		category?: {
-			name: string;
-		};
-	};
-}
-
-interface CheckoutLine {
-	id: string;
-	quantity: number;
-	variant: ProductVariant;
-	totalPrice: Price;
-}
-
-interface CheckoutData {
-	id: string;
-	lines: CheckoutLine[];
-	totalPrice: Price;
-}
-
 export const metadata = {
 	title: "Shopping Cart · Saleor Storefront example",
 };
 
 export default async function Page({ params }: { params: { channel: string } }) {
 	const checkoutId = Checkout.getIdFromCookies(params.channel);
-	const checkout = (await Checkout.find(checkoutId)) as CheckoutData | null;
+
+	const checkout = await Checkout.find(checkoutId);
 
 	if (!checkout || checkout.lines.length < 1) {
 		return (
@@ -68,7 +32,7 @@ export default async function Page({ params }: { params: { channel: string } }) 
 					</LinkWithChannel>
 				</div>
 				{/* <p className="my-12 text-sm text-neutral-500">
-					Looks like you haven't added any items to the cart yet.
+					Looks like you haven’t added any items to the cart yet.
 				</p>
 				<LinkWithChannel
 					href="/products"

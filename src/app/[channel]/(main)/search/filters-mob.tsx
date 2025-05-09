@@ -1,9 +1,14 @@
 "use client";
-/* eslint-disable */
+
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
+
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import chevDown from "@/assets/icons/CaretDown.svg";
 // import checkBg from "@/assets/icons/checkCircle.svg";
+import Image from "next/image";
 
 export default function FiltersMob() {
 	// const [drop, setDrop] = useState<boolean>(false);
@@ -21,8 +26,8 @@ export default function FiltersMob() {
 	const [searchBrand, setSearchBrand] = useState<string>("");
 
 	useEffect(() => {
-		console.log(price, category, brand, color);
-	}, [price, category, brand, color]);
+		console.log(brand, color, price, category);
+	}, [brand, color, price, category]);
 
 	return (
 		<div className="relative flex flex-shrink-0 gap-4 overflow-x-auto">

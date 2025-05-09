@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable import/no-named-as-default */
 import AdyenCheckout from "@adyen/adyen-web";
 import { type FC, useCallback, useEffect, useRef } from "react";
 
@@ -11,9 +17,10 @@ import { type AdyenGatewayInitializePayload } from "@/checkout/sections/PaymentS
 
 type AdyenCheckoutInstance = Awaited<ReturnType<typeof AdyenCheckout>>;
 
-interface DropinElement {
-	unmount: () => void;
-}
+// fake function just to get the type because can't import it :(
+const _hack = (adyenCheckout: AdyenCheckoutInstance) =>
+	adyenCheckout.create("dropin").mount("#dropin-container");
+type DropinElement = ReturnType<typeof _hack>;
 
 export const AdyenDropIn: FC<AdyenDropinProps> = ({ config }) => {
 	const { onSubmit, onAdditionalDetails } = useAdyenDropin({ config });
@@ -28,7 +35,7 @@ export const AdyenDropIn: FC<AdyenDropinProps> = ({ config }) => {
 
 			dropinComponentRef.current?.unmount();
 
-			const dropin = adyenCheckout.create("dropin").mount(container) as DropinElement;
+			const dropin = adyenCheckout.create("dropin").mount(container);
 
 			dropinComponentRef.current = dropin;
 		},
@@ -39,7 +46,7 @@ export const AdyenDropIn: FC<AdyenDropinProps> = ({ config }) => {
 		if (dropinContainerElRef.current && !dropinComponentRef.current) {
 			void createAdyenCheckoutInstance(dropinContainerElRef.current, config.data);
 		}
-	}, [createAdyenCheckoutInstance, config.data]);
+	}, []);
 
 	return <div ref={dropinContainerElRef} />;
 };

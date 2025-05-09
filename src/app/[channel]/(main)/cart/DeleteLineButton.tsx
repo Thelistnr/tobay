@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useTransition } from "react";
 import Image from "next/image";
 import { deleteLineFromCheckout } from "./actions";

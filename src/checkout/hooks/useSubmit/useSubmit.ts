@@ -19,11 +19,10 @@ import {
 } from "@/checkout/hooks/useSubmit/types";
 import { type ApiErrors } from "@/checkout/hooks/useGetParsedErrors/types";
 import { extractMutationData, extractMutationErrors } from "@/checkout/hooks/useSubmit/utils";
-import { type FormikHelpers } from "formik";
 
 interface CallbackProps<TData> {
 	formData: TData;
-	formHelpers?: FormikHelpers<TData>;
+	formHelpers?: any;
 }
 
 export interface UseSubmitProps<
@@ -41,11 +40,11 @@ export interface UseSubmitProps<
 	onError?: (
 		props: CallbackProps<TData> & {
 			errors: ApiErrors<TData, TErrorCodes>;
-			customErrors: unknown[];
+			customErrors: any[];
 			graphqlErrors: CombinedError[];
 		},
 	) => void;
-	extractCustomErrors?: (data: MutationData<TMutationFn>) => unknown[];
+	extractCustomErrors?: (data: MutationData<TMutationFn>) => any[];
 	onStart?: (props: CallbackProps<TData>) => void;
 	shouldAbort?:
 		| ((props: CallbackProps<TData>) => Promise<boolean>)
@@ -77,7 +76,7 @@ export const useSubmit = <
 	const { checkout } = useCheckout();
 
 	const handleSubmit = useCallback(
-		async (formData: TData = {} as TData, formHelpers?: FormikHelpers<TData>) => {
+		async (formData: TData = {} as TData, formHelpers?: any) => {
 			const callbackProps: CallbackProps<TData> = { formData, formHelpers };
 
 			onStart?.(callbackProps);

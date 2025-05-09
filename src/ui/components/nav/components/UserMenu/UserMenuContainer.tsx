@@ -1,11 +1,14 @@
 // import { UserIcon } from "lucide-react";
-import Image from "next/image";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
 import { UserMenu } from "./UserMenu";
 import { CurrentUserDocument } from "@/gql/graphql";
 import { executeGraphQL } from "@/lib/graphql";
 import { LinkWithChannel } from "@/ui/atoms/LinkWithChannel";
 import userIcon from "@/assets/icons/userIcon.svg";
-
+import Image from "next/image";
 export async function UserMenuContainer() {
 	const { me: user } = await executeGraphQL(CurrentUserDocument, {
 		cache: "no-cache",

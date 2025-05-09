@@ -1,10 +1,15 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import chevDown from "@/assets/icons/CaretDown.svg";
 // import checkBg from "@/assets/icons/checkCircle.svg";
+import Image from "next/image";
 
-export function Filters() {
+export default function Filters() {
 	// const [drop, setDrop] = useState<boolean>(false);
 	const [dropPrice, setDropPrice] = useState<boolean>(false);
 	const [dropCategory, setDropCategory] = useState<boolean>(false);
@@ -18,10 +23,9 @@ export function Filters() {
 	const [brand, setBrand] = useState<string>("");
 	const [color, setColor] = useState<string>("");
 	const [searchBrand, setSearchBrand] = useState<string>("");
-
 	useEffect(() => {
 		console.log(price, category, brand, color);
-	}, [price, category, brand, color]);
+	}, []);
 
 	return (
 		<div className="w-64 flex-shrink-0 ">

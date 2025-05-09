@@ -1,9 +1,13 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
 import { useState, useRef, useEffect } from "react";
 // import { FaChevronDown } from "react-icons/fa";
-import Image from "next/image";
 import bagImage from "@/assets/images/bagPicture.png";
 import dropIcon from "@/assets/icons/catDropIcon.svg";
+import Image from "next/image";
 // import { NavLink } from "./NavLink";
 // import Link from "next/link";
 import { LinkWithChannel } from "@/ui/atoms/LinkWithChannel";
@@ -16,11 +20,11 @@ const categories = [
 	{ name: "Groceries", icon: bagImage },
 ];
 
-export function CategoryDropdown({
+const CategoryDropdown = ({
 	child,
 }: {
 	child: { name: string; level: number; category: { name: string; slug: string; id: string }; id: string }[];
-}) {
+}) => {
 	const [open, setOpen] = useState(false);
 	const [category, setCategory] = useState("Categories");
 	const ref = useRef<HTMLDivElement>(null);
@@ -89,4 +93,6 @@ export function CategoryDropdown({
 			)}
 		</div>
 	);
-}
+};
+
+export default CategoryDropdown;

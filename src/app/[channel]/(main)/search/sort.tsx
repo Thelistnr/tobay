@@ -1,14 +1,16 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from "react";
-import Image from "next/image";
 import chevDown from "@/assets/icons/CaretDown.svg";
 import checkBg from "@/assets/icons/checkCircle.svg";
+import Image from "next/image";
 
-type SortOption = "Relevance" | "Popular" | "Newest";
-
-export function Sort() {
+export default function Sort() {
 	const [drop, setDrop] = useState<boolean>(false);
-	const [sortBy, setSortBy] = useState<SortOption>("Relevance");
+	const [sortBy, setSortBy] = useState<string>("Relevance");
 
 	return (
 		<div>

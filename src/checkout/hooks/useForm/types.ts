@@ -2,9 +2,8 @@ import { type FormikConfig, type FormikErrors, type FormikHelpers, type useFormi
 import { type DebouncedFunc } from "lodash-es";
 import { type FocusEventHandler } from "react";
 import { type FormSubmitFn } from "@/checkout/hooks/useFormSubmit";
-import { type Schema, type ObjectSchema } from "yup";
 
-export type FormDataBase = Record<string, unknown>;
+export type FormDataBase = Record<string, any>;
 
 export type FormErrors<TData extends FormDataBase> = FormikErrors<TData>;
 
@@ -35,7 +34,7 @@ export type FormProps<TData extends FormDataBase> = Omit<
 	initialDirty?: boolean;
 	// FIXME: because there seems to be something weird going on with the type
 	// yup returns when schema has some uncommon typings
-	validationSchema?: Schema<TData> | ObjectSchema<TData>;
+	validationSchema?: any; // Schema<TData> | ObjectSchema<TData>;
 };
 
 export type FormHelpers<TData extends FormDataBase> = Omit<
@@ -44,5 +43,5 @@ export type FormHelpers<TData extends FormDataBase> = Omit<
 > &
 	Pick<UseFormReturn<TData>, "validateForm" | "setTouched">;
 
-export type ChangeHandler<TElement = HTMLElement> = (e: React.ChangeEvent<TElement>) => void;
+export type ChangeHandler<TElement = any> = (e: React.ChangeEvent<TElement>) => void;
 export type BlurHandler = FocusEventHandler<HTMLSelectElement | HTMLInputElement>;

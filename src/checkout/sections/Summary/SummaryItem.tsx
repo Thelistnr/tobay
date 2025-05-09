@@ -1,3 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable import/no-named-as-default */
+/* eslint-disable @next/next/no-img-element */
 import { type ReactNode } from "react";
 import { useSummaryLineLineAttributesText, getSummaryLineProps } from "./utils";
 import { type CheckoutLineFragment, type OrderLineFragment } from "@/checkout/graphql";

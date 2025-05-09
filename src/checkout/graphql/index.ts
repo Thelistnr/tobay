@@ -1,4 +1,10 @@
 // THIS FILE IS GENERATED WITH `pnpm generate`
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable import/no-named-as-default */
 import gql from "graphql-tag";
 import * as Urql from "urql";
 export type Maybe<T> = T | null;

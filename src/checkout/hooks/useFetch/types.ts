@@ -9,13 +9,13 @@ export type UseFetchResult<TError, TData, TArgs> = [
 	(args?: TArgs) => Promise<TData | null>,
 ];
 
-export type GetArgsType<TFetchFn> = TFetchFn extends (args: infer ArgsType) => unknown ? ArgsType : never;
+export type GetArgsType<TFetchFn> = TFetchFn extends (args: infer ArgsType) => any ? ArgsType : never;
 
-export type GetDataType<TFetchFn> = TFetchFn extends (args: unknown) => FetchResponse<infer TData>
+export type GetDataType<TFetchFn> = TFetchFn extends (args: any) => FetchResponse<infer TData>
 	? TData
 	: never;
 
-export type FetchFn<TArgs extends Record<string, unknown>, TData> = (args: TArgs) => FetchResponse<TData>;
+export type FetchFn<TArgs extends Record<string, any>, TData> = (args: TArgs) => FetchResponse<TData>;
 
 export interface UseFetchOptionalProps<TArgs> {
 	args?: TArgs;

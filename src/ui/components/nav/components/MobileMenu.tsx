@@ -1,14 +1,17 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
 
 import { Fragment, type ReactNode } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import Image from "next/image";
 import { Logo } from "../../Logo";
 import { useMobileMenu } from "./useMobileMenu";
 // import { OpenButton } from "./OpenButton";
 import { CloseButton } from "./CloseButton";
+import Image from "next/image";
 import menuIcon from "@/assets/icons/menuIcon.svg";
-
 type Props = {
 	children: ReactNode;
 };

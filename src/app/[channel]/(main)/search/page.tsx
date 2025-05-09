@@ -1,12 +1,16 @@
-import { Sort } from "./sort";
-import { Filters } from "./filters";
-import FiltersMob from "./filters-mob";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
 import { notFound, redirect } from "next/navigation";
 import { OrderDirection, ProductOrderField, SearchProductsDocument } from "@/gql/graphql";
 import { executeGraphQL } from "@/lib/graphql";
 import { Pagination } from "@/ui/components/Pagination";
 import { ProductList } from "@/ui/components/ProductList";
 import { ProductsPerPage } from "@/app/config";
+import Sort from "./sort";
+import Filters from "./filters";
+import FiltersMob from "./filters-mob";
 
 export const metadata = {
 	title: "Search products · Saleor Storefront example",

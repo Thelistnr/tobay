@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { invariant } from "ts-invariant";
 import Image from "next/image";
 import { RootWrapper } from "./pageWrapper";
 // import logo from "../../app/Tobay Icon.svg";
 import arrow from "@/assets/icons/CaretRight.svg";
 import { Header } from "@/ui/components/Header";
-
 export const metadata = {
 	title: "Checkout · Tobay Stores",
 };

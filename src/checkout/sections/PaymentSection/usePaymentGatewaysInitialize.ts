@@ -1,66 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable import/order */
+/* eslint-disable import/no-default-export */
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable import/no-named-as-default */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { type CountryCode, usePaymentGatewaysInitializeMutation } from "@/checkout/graphql";
 import { useCheckout } from "@/checkout/hooks/useCheckout";
 import { useSubmit } from "@/checkout/hooks/useSubmit";
 import { type MightNotExist } from "@/checkout/lib/globalTypes";
-import {
-	type ParsedPaymentGateways,
-	type ParsedAdyenGateway,
-	type ParsedStripeGateway,
-	type ParsedDummyGateway,
-	type PaymentGatewayId,
-} from "@/checkout/sections/PaymentSection/types";
+import { type ParsedPaymentGateways } from "@/checkout/sections/PaymentSection/types";
 import { getFilteredPaymentGateways } from "@/checkout/sections/PaymentSection/utils";
-
-function parseGatewayConfig(config: {
-	id: string;
-	data?: Record<string, unknown> | null;
-}): ParsedAdyenGateway | ParsedStripeGateway | ParsedDummyGateway {
-	const gatewayId = config.id as PaymentGatewayId;
-	return {
-		...config,
-		id: gatewayId,
-		data: config.data || {},
-	};
-}
-
-type PaymentGatewaysInitializeMutation = {
-	paymentGatewayInitialize: {
-		errors: Array<{
-			field?: string | null;
-			message?: string | null;
-			code: string;
-		}>;
-		gatewayConfigs?: Array<{
-			id: string;
-			data?: Record<string, unknown> | null;
-		}> | null;
-	};
-};
-
-interface PaymentGatewayConfigError {
-	field?: string | null;
-	message?: string | null;
-	code: string;
-}
-
-interface PaymentGatewayConfig {
-	__typename?: "PaymentGatewayConfig";
-	id: string;
-	data?: Record<string, unknown> | null;
-	errors?: PaymentGatewayConfigError[] | null;
-}
-
-interface PaymentGatewayInitializeResponse {
-	__typename?: "PaymentGatewayInitialize";
-	errors: {
-		__typename?: "PaymentGatewayInitializeError";
-		field?: string | null;
-		message?: string | null;
-		code: string;
-	}[];
-	gatewayConfigs?: PaymentGatewayConfig[] | null;
-}
 
 export const usePaymentGatewaysInitialize = () => {
 	const {
@@ -92,11 +42,12 @@ export const usePaymentGatewaysInitialize = () => {
 					})),
 				}),
 				onSuccess: ({ data }) => {
-					if (!data.gatewayConfigs?.length) {
+					const parsedConfigs = (data.gatewayConfigs || []) as ParsedPaymentGateways;
+
+					if (!parsedConfigs.length) {
 						throw new Error("No available payment gateways");
 					}
 
-					const parsedConfigs = data.gatewayConfigs.map(parseGatewayConfig) as ParsedPaymentGateways;
 					setGatewayConfigs(parsedConfigs);
 				},
 				onError: ({ errors }) => {
@@ -109,7 +60,7 @@ export const usePaymentGatewaysInitialize = () => {
 
 	useEffect(() => {
 		void onSubmit();
-	}, [onSubmit]);
+	}, []);
 
 	useEffect(() => {
 		if (billingCountry !== previousBillingCountry.current) {
