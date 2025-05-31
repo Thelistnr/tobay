@@ -1,11 +1,11 @@
 export const STYLE_ELEMENT_ID = "appConfigStyle";
 
 export const defaultAppColors = {
-	buttonBgColorPrimary: "#394052",
-	buttonBgColorHover: "#FFFFFF",
-	borderColorPrimary: "#394052",
-	textColor: "#394052",
-	successColor: "#2C9B2A",
-	errorColor: "#B65757",
-	buttonTextColor: "#FFFFFF",
+	buttonBgColorPrimary: "#EB5017",
+	buttonBgColorHover: "#CC400C",
+	borderColorPrimary: "#EB5017",
+	textColor: "#1D2739",
+	successColor: "#0F973D",
+	errorColor: "#DE2821",
+	buttonTextColor: "#F8F8FC",
 };

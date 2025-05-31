@@ -172,22 +172,26 @@ export default async function Page({ params }: { params: { channel: string } }) 
 									</div>
 								</div>
 								<div className="flex justify-between">
-									<div className="text-sm font-bold">Qty: {item.quantity}</div>
-									{/* <div className="flex items-center gap-2 rounded-lg border border-[#F0F2F5] px-3">
+									{/* <div className="text-sm font-bold">Qty: {item.quantity}</div> */}
+									<div className="flex items-center gap-1 rounded-lg border border-[#F0F2F5] p-1">
 										<button
 											type="button"
-											className={`${item.quantity <= 1 ? "text-[#667185]" : "text-[#101928]"}`}
+											className={`${
+												item.quantity <= 1 ? "text-[#667185]" : "text-[#101928]"
+											} h-8 w-8 text-center`}
 										>
 											-
 										</button>
-										<span className="w-4 text-center font-bold text-[#101928]">{item.quantity}</span>
+										<span className="h-7 w-7 text-center font-bold text-[#101928]">{item.quantity}</span>
 										<button
 											type="button"
-											className={`${item.quantity >= 10 ? "text-[#98A2B3]" : "text-[#101928]"}`}
+											className={`${
+												item.quantity >= 10 ? "text-[#98A2B3]" : "text-[#101928]"
+											} h-8 w-8 text-center`}
 										>
 											+
 										</button>
-									</div> */}
+									</div>
 									<DeleteLineButton checkoutId={checkoutId} lineId={item.id} />
 								</div>
 							</div>

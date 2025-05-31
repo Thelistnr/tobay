@@ -182,7 +182,7 @@ export default async function Page({
 	// console.log(quantity);
 
 	return (
-		<section className="mx-auto grid max-w-7xl bg-[#F7F9FC] p-8">
+		<section className="mx-auto grid max-w-6xl bg-[#F7F9FC] p-4 sm:p-8">
 			<script
 				type="application/ld+json"
 				dangerouslySetInnerHTML={{

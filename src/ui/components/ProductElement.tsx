@@ -19,19 +19,19 @@ export function ProductElement({
 							src={product.thumbnail.url}
 							alt={product.thumbnail.alt ?? ""}
 							width={234}
-							height={512}
+							height={230}
 							sizes={"234px"}
 							priority={priority}
 						/>
 					)}
-					<div className="mt-2 flex flex-col gap-2">
+					<div className="mt-3 flex flex-col gap-1">
 						<div>
-							<h3 className="mt-1 text-sm font-medium text-[#1D2739]">{product.name}</h3>
+							<h3 className="mt-1 w-full truncate text-sm font-medium text-[#1D2739]">{product.name}</h3>
 							{/* <p className="mt-1 text-sm text-neutral-500" data-testid="ProductElement_Category">
 								{product.category?.name}
 							</p> */}
 						</div>
-						<p className="mt-1 text-sm font-bold text-[#1D2739]" data-testid="ProductElement_PriceRange">
+						<p className="mb-1 text-sm font-bold text-[#1D2739]" data-testid="ProductElement_PriceRange">
 							{formatMoneyRange({
 								start: product?.pricing?.priceRange?.start?.gross,
 								stop: product?.pricing?.priceRange?.stop?.gross,

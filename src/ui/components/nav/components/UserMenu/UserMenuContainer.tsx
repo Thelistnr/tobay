@@ -18,9 +18,13 @@ export async function UserMenuContainer() {
 		return <UserMenu user={user} />;
 	} else {
 		return (
-			<LinkWithChannel href="/login" className="h-7 w-7 flex-shrink-0">
+			<LinkWithChannel href="/login" className="h-7 w-7 flex-shrink-0 md:w-max">
+				{/* <LinkWithChannel href="/login" className="h-7 w-7 flex-shrink-0"> */}
 				{/* <UserIcon className="h-6 w-6 shrink-0" aria-hidden="true" /> */}
-				<Image src={userIcon} alt="user" className="w-7 shrink-0" aria-hidden="true" />
+				<div className="flex items-center gap-1">
+					<Image src={userIcon} alt="user" className="w-7 shrink-0" aria-hidden="true" />
+					<span className="hidden font-medium text-[#344054] md:block">Login/Signup</span>
+				</div>
 				<span className="sr-only">Log in</span>
 			</LinkWithChannel>
 		);
