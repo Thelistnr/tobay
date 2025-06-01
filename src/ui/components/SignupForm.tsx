@@ -1,6 +1,6 @@
 import { getServerAuthClient } from "@/app/config";
 
-export async function LoginForm() {
+export async function SignupForm() {
 	return (
 		<div className="mx-auto mt-16 w-full max-w-lg">
 			<form
@@ -52,7 +52,7 @@ export async function LoginForm() {
 					className="rounded bg-neutral-800 px-4 py-2 text-neutral-200 hover:bg-neutral-700"
 					type="submit"
 				>
-					Log In
+					Sign up
 				</button>
 			</form>
 			<div></div>
