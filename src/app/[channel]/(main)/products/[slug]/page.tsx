@@ -113,7 +113,7 @@ export default async function Page({
 
 		// Access individual fields
 		// const formData = await e.formData();
-		const quantity = parseInt(formData.get("quantity") as string) || 1;
+		const quantity = parseInt(formData.get("quantity") as string) || 4;
 		console.log(quantity);
 		console.log(formData.get("quantity"));
 		Checkout.saveIdToCookie(params.channel, checkout.id);
@@ -127,7 +127,7 @@ export default async function Page({
 			variables: {
 				id: checkout.id,
 				productVariantId: decodeURIComponent(selectedVariantID),
-				quantity,
+				quantity: 5,
 			},
 			cache: "no-cache",
 		});
