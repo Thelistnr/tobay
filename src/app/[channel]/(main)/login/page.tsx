@@ -40,7 +40,6 @@ export default function LoginPage() {
 		saleorURL: saleorApiUrl || "https://tobay.saleor.cloud/graphql/",
 		provider: ExternalProvider.OpenIDConnect,
 		redirectURL: "http://localhost:3300/api/auth/callback",
-		// redirectURL: "http://localhost:3300/main-channel/api/auth/callback",
 	});
 
 	const { signOut } = useSaleorAuthContext();
