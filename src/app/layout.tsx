@@ -35,18 +35,7 @@ export const metadata: Metadata = {
 		: undefined,
 };
 
-export default function RootLayout(props: { children: ReactNode }) {
-	const { children } = props;
-	// const saleorApiUrl = process.env.NEXT_PUBLIC_SALEOR_API_URL || "https://tobay.saleor.cloud/graphql/";
-	// invariant(saleorApiUrl, "Missing NEXT_PUBLIC_SALEOR_API_URL env variable");
-
-	// const [urqlClient, setUrqlClient] = useState<Client>(() => makeUrqlClient());
-	// useAuthChange({
-	// 	saleorApiUrl,
-	// 	onSignedOut: () => setUrqlClient(makeUrqlClient()),
-	// 	onSignedIn: () => setUrqlClient(makeUrqlClient()),
-	// });
-
+export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang="en" className="min-h-dvh">
 			{/* <SaleorAuthProvider client={saleorAuthClient}>

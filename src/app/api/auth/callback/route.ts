@@ -6,70 +6,57 @@
 /* eslint-disable import/no-named-as-default */
 /* eslint-disable @next/next/no-img-element */
 
-import { ExternalProvider } from "@saleor/auth-sdk";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
+const SALEOR_API_URL = process.env.NEXT_PUBLIC_SALEOR_API_URL || "https://tobay.saleor.cloud/graphql/";
+const SALEOR_APP_URL = process.env.NEXT_PUBLIC_SALEOR_APP_URL || "http://localhost:3300";
 
-interface ExternalObtainAccessTokensResponse {
+interface TokenResponse {
   data?: {
-    externalObtainAccessTokens: {
-      token: string;
-      refreshToken: string;
-      csrfToken: string;
-      user: {
+    externalObtainAccessTokens?: {
+      token?: string;
+      refreshToken?: string | null;
+      user?: {
         id: string;
         email: string;
       };
-      errors: Array<{
+      errors?: Array<{
         field: string;
         message: string;
+        code: string;
       }>;
     };
   };
-  errors?: Array<{
-    message: string;
-  }>;
-}
-
-interface ExternalAuthentication {
-  id: string;
-  name: string;
-}
-
-interface ShopQueryResponse {
-  data?: {
-    shop: {
-      availableExternalAuthentications: ExternalAuthentication[];
-    };
-  };
-  errors?: Array<{
-    message: string;
-  }>;
 }
 
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const state = searchParams.get("state");
-  const code = searchParams.get("code");
-
-  if (!state || !code) {
-    return new Response("Missing required parameters", { status: 400 });
-  }
-
   try {
-    // Call the Saleor API to exchange the code for tokens
-    const response = await fetch("https://store-lrwhkknb.saleor.cloud/graphql/", {
+    const searchParams = request.nextUrl.searchParams;
+    const code = searchParams.get("code");
+    const state = searchParams.get("state");
+
+    if (!code || !state) {
+      console.error("Missing code or state in callback");
+      return NextResponse.redirect(`${SALEOR_APP_URL}/auth/error?error=missing_params`);
+    }
+
+    console.log("Received OIDC callback with code and state");
+
+    // Exchange the code for tokens
+    const tokenResponse = await fetch(SALEOR_API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         query: `
-          mutation ExternalObtainAccessTokens($input: JSONString!, $pluginId: String!) {
-            externalObtainAccessTokens(input: $input, pluginId: $pluginId) {
+          mutation {
+            externalObtainAccessTokens(
+              pluginId: "mirumee.authentication.openidconnect",
+              input: "{\\"code\\":\\"${code}\\",\\"state\\":\\"${state}\\"}"
+            ) {
               token
               refreshToken
-              csrfToken
               user {
                 id
                 email
@@ -77,57 +64,64 @@ export async function GET(request: NextRequest) {
               errors {
                 field
                 message
+                code
               }
             }
           }
         `,
-        variables: {
-          input: JSON.stringify({
-            code,
-            state,
-            provider: ExternalProvider.OpenIDConnect,
-          }),
-          pluginId: "openid-connect", 
-        },
       }),
     });
 
-    const data = (await response.json()) as ExternalObtainAccessTokensResponse;
+    const tokenData = (await tokenResponse.json()) as TokenResponse;
+    console.log("Token response:", JSON.stringify(tokenData, null, 2));
+
+    const tokenErrors = tokenData.data?.externalObtainAccessTokens?.errors;
+    if (tokenErrors && tokenErrors.length > 0) {
+      console.error("Token errors:", tokenErrors);
+      return NextResponse.redirect(
+        `${SALEOR_APP_URL}/auth/error?error=${tokenErrors[0].code}`
+      );
+    }
+
+    const token = tokenData.data?.externalObtainAccessTokens?.token;
+    if (!token) {
+      console.error("No access token returned");
+      return NextResponse.redirect(`${SALEOR_APP_URL}/auth/error?error=no_access_token`);
+    }
+
+    // Store token in cookie
+    const response = NextResponse.redirect(`${SALEOR_APP_URL}/dashboard`);
     
-    if (data.errors) {
-      return new Response(JSON.stringify({ error: data.errors }), { 
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-
-    if (!data.data?.externalObtainAccessTokens) {
-      return new Response(JSON.stringify({ error: "No data received" }), { 
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-
-    // Set the tokens in cookies
-    const tokens = data.data.externalObtainAccessTokens;
-    const headers = new Headers();
-    headers.append("Set-Cookie", `token=${tokens.token}; Path=/; HttpOnly; SameSite=Lax`);
-    headers.append("Set-Cookie", `refreshToken=${tokens.refreshToken}; Path=/; HttpOnly; SameSite=Lax`);
-    headers.append("Set-Cookie", `csrfToken=${tokens.csrfToken}; Path=/; HttpOnly; SameSite=Lax`);
-
-    // Redirect to the home page
-    return new Response(null, {
-      status: 302,
-      headers: {
-        ...Object.fromEntries(headers.entries()),
-        Location: "/"
-      }
+    // Set HTTP-only cookie for security
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
     });
+
+    // Set non-HTTP-only cookie for client-side access
+    response.cookies.set("clientToken", token, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+    });
+
+    // Only set refresh token if it exists
+    const refreshToken = tokenData.data?.externalObtainAccessTokens?.refreshToken;
+    if (refreshToken) {
+      response.cookies.set("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+      });
+    }
+
+    return response;
   } catch (error) {
-    console.error("Auth error:", error);
-    return new Response(JSON.stringify({ error: "Authentication failed" }), { 
-      status: 500,
-      headers: { "Content-Type": "application/json" }
-    });
+    console.error("Callback error:", error);
+    return NextResponse.redirect(`${SALEOR_APP_URL}/auth/error?error=callback_failed`);
   }
 } 

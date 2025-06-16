@@ -10,31 +10,30 @@ import {
 } from "urql";
 
 import { ToastContainer } from "react-toastify";
-import { useAuthChange, useSaleorAuthContext } from "@saleor/auth-sdk/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { alertsContainerProps } from "./hooks/useAlerts/consts";
 import { RootViews } from "./views/RootViews";
 import { PageNotFound } from "@/checkout/views/PageNotFound";
+import { useAuth } from "@/ui/components/AuthProvider";
 import "./index.css";
 
 export const Root = ({ saleorApiUrl }: { saleorApiUrl: string }) => {
-	const saleorAuthClient = useSaleorAuthContext();
+	const { isAuthenticated } = useAuth();
 
 	const makeUrqlClient = () =>
 		createClient({
 			url: saleorApiUrl,
 			suspense: true,
 			requestPolicy: "cache-first",
-			fetch: (input, init) => saleorAuthClient.fetchWithAuth(input as NodeJS.fetch.RequestInfo, init),
 			exchanges: [dedupExchange, cacheExchange, fetchExchange],
 		});
 
 	const [urqlClient, setUrqlClient] = useState<Client>(makeUrqlClient());
-	useAuthChange({
-		saleorApiUrl,
-		onSignedOut: () => setUrqlClient(makeUrqlClient()),
-		onSignedIn: () => setUrqlClient(makeUrqlClient()),
-	});
+
+	// Update client when auth state changes
+	useEffect(() => {
+		setUrqlClient(makeUrqlClient());
+	}, [isAuthenticated]);
 
 	return (
 		<UrqlProvider value={urqlClient}>

@@ -1,29 +1,27 @@
 import React from "react";
-import { useSaleorAuthContext } from "@saleor/auth-sdk/react";
-import { SignInFormContainer, type SignInFormContainerProps } from "../Contact/SignInFormContainer";
-import { Button } from "@/checkout/components/Button";
-import { useUser } from "@/checkout/hooks/useUser";
+import { useAuth } from "@/ui/components/AuthProvider";
 
-interface SignedInUserProps extends Pick<SignInFormContainerProps, "onSectionChange"> {
-	onSignOutSuccess: () => void;
-}
+export const SignedInUser = () => {
+	const { user, signOut } = useAuth();
 
-export const SignedInUser: React.FC<SignedInUserProps> = ({ onSectionChange, onSignOutSuccess }) => {
-	const { signOut } = useSaleorAuthContext();
-
-	const { user } = useUser();
-
-	const handleLogout = async () => {
-		signOut();
-		onSignOutSuccess();
-	};
+	if (!user) {
+		return null;
+	}
 
 	return (
-		<SignInFormContainer title="Account" onSectionChange={onSectionChange}>
-			<div className="flex flex-row justify-between">
-				<p className="text-base font-bold">{user?.email}</p>
-				<Button ariaLabel="Sign out" variant="tertiary" onClick={handleLogout} label="Sign out" />
+		<div className="flex items-center space-x-4">
+			<div>
+				<p className="text-sm font-medium text-gray-900">
+					{user.firstName} {user.lastName}
+				</p>
+				<p className="text-sm text-gray-500">{user.email}</p>
 			</div>
-		</SignInFormContainer>
+			<button
+				onClick={() => signOut()}
+				className="text-sm text-gray-500 hover:text-gray-700"
+			>
+				Sign out
+			</button>
+		</div>
 	);
 };
