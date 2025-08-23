@@ -8,12 +8,15 @@ import { UserAvatar } from "./components/UserAvatar";
 import { type UserDetailsFragment } from "@/gql/graphql";
 import { logout } from "@/app/actions";
 import { LinkWithChannel } from "@/ui/atoms/LinkWithChannel";
+import { useSaleorAuthContext } from "@saleor/auth-sdk/react";
 
 type Props = {
 	user: UserDetailsFragment;
 };
 
 export function UserMenu({ user }: Props) {
+	const { signOut } = useSaleorAuthContext();
+
 	return (
 		<Menu as="div" className="relative">
 			<Menu.Button className="relative flex rounded-full bg-neutral-200 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-neutral-800">
@@ -52,6 +55,7 @@ export function UserMenu({ user }: Props) {
 								<form action={logout}>
 									<button
 										type="submit"
+										onClick={() => signOut()}
 										className={clsx(
 											active && "bg-neutral-100",
 											"block px-4 py-2 text-start text-sm font-medium text-neutral-500 hover:text-neutral-700",
