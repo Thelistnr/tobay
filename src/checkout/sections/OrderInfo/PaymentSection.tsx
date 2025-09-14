@@ -26,7 +26,7 @@ const SuccessMessage = ({ message }: { message: string }) => {
 
 export const PaymentSection = () => {
 	const { order } = useOrder();
-	const paymentStatus = usePaymentStatus(order);
+	const paymentStatus = usePaymentStatus(order || {});
 
 	return (
 		<Section title="Payment">

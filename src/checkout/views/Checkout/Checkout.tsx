@@ -16,7 +16,7 @@ export const Checkout = () => {
 
 	const isInitiallyAuthenticating = isAuthenticating && !checkout;
 
-	const isEmptyCart = checkout && !checkout.lines.length;
+	const isEmptyCart = checkout && !checkout.lines?.length;
 
 	return isCheckoutInvalid ? (
 		<PageNotFound />

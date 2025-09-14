@@ -57,7 +57,7 @@ import { SaleorAuthProvider, useAuthChange } from "@saleor/auth-sdk/react";
 import { useState } from "react";
 import { Client, Provider } from "urql";
 
-const saleorApiUrl = process.env.NEXT_PUBLIC_SALEOR_URL!;
+const saleorApiUrl = process.env.NEXT_PUBLIC_SALEOR_API_URL!;
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [urqlClient, setUrqlClient] = useState<Client>(makeUrqlClient());

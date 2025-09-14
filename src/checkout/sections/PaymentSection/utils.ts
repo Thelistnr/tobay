@@ -31,8 +31,8 @@ export const usePaymentStatus = ({
 	chargeStatus,
 	authorizeStatus,
 }: {
-	chargeStatus: CheckoutChargeStatusEnum | OrderChargeStatusEnum;
-	authorizeStatus: CheckoutAuthorizeStatusEnum | OrderAuthorizeStatusEnum;
+	chargeStatus?: CheckoutChargeStatusEnum | OrderChargeStatusEnum;
+	authorizeStatus?: CheckoutAuthorizeStatusEnum | OrderAuthorizeStatusEnum;
 }): PaymentStatus => {
 	if (chargeStatus === "NONE" && authorizeStatus === "FULL") {
 		return "authorized";

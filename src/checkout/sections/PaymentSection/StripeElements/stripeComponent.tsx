@@ -29,7 +29,7 @@ export const StripeComponent = () => {
 
 	useEffect(() => {
 		transactionInitialize({
-			checkoutId: checkout.id,
+			checkoutId: checkout?.id || "",
 			paymentGateway: {
 				id: stripeGatewayId,
 				data: {
@@ -42,7 +42,7 @@ export const StripeComponent = () => {
 			console.error(err);
 			showCustomErrors([{ message: commonErrorMessages.somethingWentWrong }]);
 		});
-	}, [checkout.id, commonErrorMessages.somethingWentWrong, showCustomErrors, transactionInitialize]);
+	}, [checkout?.id, commonErrorMessages.somethingWentWrong, showCustomErrors, transactionInitialize]);
 
 	const stripePromise = useMemo(
 		() => stripeData?.publishableKey && loadStripe(stripeData.publishableKey),

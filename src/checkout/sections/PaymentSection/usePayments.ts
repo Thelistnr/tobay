@@ -9,7 +9,7 @@ const paidStatuses: PaymentStatus[] = ["overpaid", "paidInFull", "authorized"];
 
 export const usePayments = () => {
 	const { checkout } = useCheckout();
-	const paymentStatus = usePaymentStatus(checkout);
+	const paymentStatus = usePaymentStatus(checkout || {});
 
 	const { fetching, availablePaymentGateways } = usePaymentGatewaysInitialize();
 

@@ -19,7 +19,7 @@ import { useCheckoutUpdateStateActions } from "@/checkout/state/updateStateStore
 
 export const useUserBillingAddressForm = () => {
 	const { checkout } = useCheckout();
-	const { billingAddress } = checkout;
+	const { billingAddress } = checkout || {};
 	const { setChangingBillingCountry } = useCheckoutUpdateStateActions();
 
 	const { user } = useUser();
@@ -50,7 +50,7 @@ export const useUserBillingAddressForm = () => {
 	const { form, userAddressActions } = useAddressListForm({
 		onSubmit,
 		defaultAddress: user?.defaultBillingAddress,
-		checkoutAddress: checkout.billingAddress,
+		checkoutAddress: checkout?.billingAddress,
 	});
 
 	const onChange: ChangeHandler = (event) => {

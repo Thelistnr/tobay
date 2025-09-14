@@ -95,8 +95,8 @@ export const useSubmit = <
 
 			const commonData: CommonVars = {
 				languageCode: "EN_US",
-				channel: checkout.channel.slug,
-				checkoutId: checkout.id,
+				channel: checkout?.channel?.slug || "main-channel",
+				checkoutId: checkout?.id || "",
 			};
 
 			const unparsedMutationVars = { ...formData, ...commonData };
@@ -137,8 +137,8 @@ export const useSubmit = <
 			onStart,
 			shouldAbort,
 			setCheckoutUpdateState,
-			checkout.channel.slug,
-			checkout.id,
+			checkout?.channel?.slug,
+			checkout?.id,
 			onSubmit,
 			parse,
 			extractCustomErrors,

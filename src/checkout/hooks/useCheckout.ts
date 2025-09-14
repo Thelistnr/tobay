@@ -5,12 +5,18 @@ import { extractCheckoutIdFromUrl } from "@/checkout/lib/utils/url";
 import { useCheckoutUpdateStateActions } from "@/checkout/state/updateStateStore";
 
 export const useCheckout = ({ pause = false } = {}) => {
-	const id = useMemo(() => extractCheckoutIdFromUrl(), []);
+	const id = useMemo(() => {
+		try {
+			return extractCheckoutIdFromUrl();
+		} catch {
+			return null;
+		}
+	}, []);
 	const { setLoadingCheckout } = useCheckoutUpdateStateActions();
 
 	const [{ data, fetching, stale }, refetch] = useCheckoutQuery({
-		variables: { id, languageCode: "EN_US" },
-		pause: pause,
+		variables: { id: id || "", languageCode: "EN_US" },
+		pause: pause || !id,
 	});
 
 	useEffect(() => setLoadingCheckout(fetching || stale), [fetching, setLoadingCheckout, stale]);

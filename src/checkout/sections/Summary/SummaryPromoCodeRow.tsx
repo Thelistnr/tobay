@@ -26,7 +26,7 @@ export const SummaryPromoCodeRow: React.FC<SummaryPromoCodeRowProps> = ({
 
 		void checkoutRemovePromoCode({
 			languageCode: "EN_US",
-			checkoutId: checkout.id,
+			checkoutId: checkout?.id || "",
 			...variables,
 		});
 	};

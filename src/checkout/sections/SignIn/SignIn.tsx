@@ -25,9 +25,8 @@ export const SignIn: React.FC<SignInProps> = ({
 	onEmailChange,
 	email: initialEmail,
 }) => {
-	const {
-		checkout: { email: checkoutEmail },
-	} = useCheckout();
+	const { checkout } = useCheckout();
+	const { email: checkoutEmail } = checkout || {};
 	const { errorMessages } = useErrorMessages();
 
 	const form = useSignInForm({

@@ -50,9 +50,8 @@ export const useAdyenDropin = (props: AdyenDropinProps) => {
 	const { config } = props;
 	const { id } = config;
 
-	const {
-		checkout: { id: checkoutId, totalPrice },
-	} = useCheckout();
+	const { checkout } = useCheckout();
+	const { id: checkoutId, totalPrice } = checkout || {};
 	const { authenticated } = useUser();
 	const { getMessageByErrorCode } = useErrorMessages(adyenErrorMessages);
 	const { errorMessages: commonErrorMessages } = useErrorMessages(apiErrorMessages);

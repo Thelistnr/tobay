@@ -14,7 +14,7 @@ interface DeliveryMethodsFormData {
 
 export const useDeliveryMethodsForm = (): UseFormReturn<DeliveryMethodsFormData> => {
 	const { checkout } = useCheckout();
-	const { shippingMethods, shippingAddress, deliveryMethod } = checkout;
+	const { shippingMethods, shippingAddress, deliveryMethod } = checkout || {};
 	const [, updateDeliveryMethod] = useCheckoutDeliveryMethodUpdateMutation();
 	const { setCheckoutUpdateState } = useCheckoutUpdateStateChange("checkoutDeliveryMethodUpdate");
 
@@ -23,7 +23,7 @@ export const useDeliveryMethodsForm = (): UseFormReturn<DeliveryMethodsFormData>
 	);
 
 	const getAutoSetMethod = useCallback(() => {
-		if (!shippingMethods.length) {
+		if (!shippingMethods?.length) {
 			return;
 		}
 
@@ -46,7 +46,7 @@ export const useDeliveryMethodsForm = (): UseFormReturn<DeliveryMethodsFormData>
 				scope: "checkoutDeliveryMethodUpdate",
 				onSubmit: updateDeliveryMethod,
 				shouldAbort: ({ formData: { selectedMethodId } }) =>
-					!selectedMethodId || selectedMethodId === checkout.deliveryMethod?.id,
+					!selectedMethodId || selectedMethodId === checkout?.deliveryMethod?.id,
 				parse: ({ selectedMethodId, languageCode, checkoutId }) => ({
 					deliveryMethodId: selectedMethodId as string,
 					languageCode,
@@ -56,7 +56,7 @@ export const useDeliveryMethodsForm = (): UseFormReturn<DeliveryMethodsFormData>
 					return setValues({ selectedMethodId });
 				},
 			}),
-			[checkout.deliveryMethod?.id, updateDeliveryMethod],
+			[checkout?.deliveryMethod?.id, updateDeliveryMethod],
 		),
 	);
 

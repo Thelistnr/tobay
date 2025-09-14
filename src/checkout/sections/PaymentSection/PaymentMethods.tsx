@@ -17,7 +17,7 @@ export const PaymentMethods = () => {
 
 	return (
 		<div className="gap-y-8">
-			{availablePaymentGateways.map((gateway) => {
+			{availablePaymentGateways?.map((gateway) => {
 				const Component = paymentMethodToComponent[gateway.id];
 				return (
 					<Component

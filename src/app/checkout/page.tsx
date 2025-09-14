@@ -22,7 +22,8 @@ export default function CheckoutPage({
 
 	return (
 		<>
-			<Header channel={"default-channel"} />
+			<Header channel={"main-channel"} />
+			{/* <Header channel={"default-channel"} /> */}
 			{/* <header className="sticky top-0 z-20 bg-white/80 backdrop-blur-md">
 				<div className="mx-auto max-w-7xl px-3 sm:px-8">
 					<div className="hidden h-16 justify-between gap-4 md:flex md:gap-8">

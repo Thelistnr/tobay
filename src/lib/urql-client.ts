@@ -1,7 +1,7 @@
 import { createSaleorAuthClient } from "@saleor/auth-sdk";
 import { cacheExchange, createClient, fetchExchange } from "urql";
 
-const saleorApiUrl = process.env.NEXT_PUBLIC_SALEOR_URL || "https://store-lrwhkknb.saleor.cloud/graphql/";
+const saleorApiUrl = process.env.NEXT_PUBLIC_SALEOR_API_URL || "https://store-lrwhkknb.saleor.cloud/graphql/";
 
 export const saleorAuthClient = createSaleorAuthClient({ saleorApiUrl });
 

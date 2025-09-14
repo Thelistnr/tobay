@@ -51,11 +51,12 @@ export const Summary: FC<SummaryProps> = ({
 					<summary className="-mb-2 flex cursor-pointer flex-row items-center justify-between pt-4">
 						<Title className="text-xl font-semibold text-[#1D2739]">Order Summary</Title>
 						<div className="mb-2 flex items-center rounded-md border border-[#E4E7EC] p-1 text-sm text-[#344054]">
-							12 products <ChevronDownIcon className="group-open:rotate-180" />
+							{lines?.length} product{lines?.length > 1 && "s"}{" "}
+							<ChevronDownIcon className="group-open:rotate-180" />
 						</div>
 					</summary>
 					<ul className="py-2" data-testid="SummaryProductList">
-						{lines.map((line) => (
+						{lines?.map((line) => (
 							<SummaryItem line={line} key={line?.id}>
 								{editable ? (
 									<SummaryItemMoneyEditableSection line={line as CheckoutLineFragment} />
@@ -84,7 +85,7 @@ export const Summary: FC<SummaryProps> = ({
 							negative
 						/>
 					)}
-					{giftCards.map(({ currentBalance, displayCode, id }) => (
+					{giftCards?.map(({ currentBalance, displayCode, id }) => (
 						<SummaryPromoCodeRow
 							key={id}
 							editable={editable}

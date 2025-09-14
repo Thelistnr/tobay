@@ -44,7 +44,7 @@ export const AddressList: React.FC<AddressListProps> = ({
 					className="w-full"
 				/>
 				<SelectBoxGroup label="user addresses" className="mt-2">
-					{addressList.map(({ id, ...rest }: AddressFragment) => {
+					{addressList?.map(({ id, ...rest }: AddressFragment) => {
 						const identifier = `${camelCase(title)}-${id}}`;
 
 						return (

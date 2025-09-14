@@ -5,9 +5,8 @@ import { useSubmit } from "@/checkout/hooks/useSubmit";
 import { replaceUrl } from "@/checkout/lib/utils/url";
 
 export const useCheckoutComplete = () => {
-	const {
-		checkout: { id: checkoutId },
-	} = useCheckout();
+	const { checkout } = useCheckout();
+	const { id: checkoutId } = checkout || {};
 	const [{ fetching }, checkoutComplete] = useCheckoutCompleteMutation();
 
 	const onCheckoutComplete = useSubmit<{}, typeof checkoutComplete>(

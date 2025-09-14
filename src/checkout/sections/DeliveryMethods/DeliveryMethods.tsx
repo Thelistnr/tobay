@@ -15,7 +15,7 @@ import { useUser } from "@/checkout/hooks/useUser";
 export const DeliveryMethods: React.FC<CommonSectionProps> = ({ collapsed }) => {
 	const { checkout } = useCheckout();
 	const { authenticated } = useUser();
-	const { shippingMethods, shippingAddress } = checkout;
+	const { shippingMethods, shippingAddress } = checkout || {};
 	const form = useDeliveryMethodsForm();
 	const { updateState } = useCheckoutUpdateState();
 

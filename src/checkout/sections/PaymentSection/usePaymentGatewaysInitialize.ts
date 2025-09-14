@@ -13,12 +13,8 @@ import { type ParsedPaymentGateways } from "@/checkout/sections/PaymentSection/t
 import { getFilteredPaymentGateways } from "@/checkout/sections/PaymentSection/utils";
 
 export const usePaymentGatewaysInitialize = () => {
-	const {
-		checkout: { billingAddress },
-	} = useCheckout();
-	const {
-		checkout: { id: checkoutId, availablePaymentGateways },
-	} = useCheckout();
+	const { checkout } = useCheckout();
+	const { billingAddress, id: checkoutId, availablePaymentGateways } = checkout || {};
 
 	const billingCountry = billingAddress?.country.code as MightNotExist<CountryCode>;
 
@@ -32,14 +28,16 @@ export const usePaymentGatewaysInitialize = () => {
 			() => ({
 				hideAlerts: true,
 				scope: "paymentGatewaysInitialize",
-				shouldAbort: () => !availablePaymentGateways.length,
+				shouldAbort: () => !availablePaymentGateways?.length,
 				onSubmit: paymentGatewaysInitialize,
 				parse: () => ({
 					checkoutId,
-					paymentGateways: getFilteredPaymentGateways(availablePaymentGateways).map(({ config, id }) => ({
-						id,
-						data: config,
-					})),
+					paymentGateways: getFilteredPaymentGateways(availablePaymentGateways || []).map(
+						({ config, id }) => ({
+							id,
+							data: config,
+						}),
+					),
 				}),
 				onSuccess: ({ data }) => {
 					const parsedConfigs = (data.gatewayConfigs || []) as ParsedPaymentGateways;

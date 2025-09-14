@@ -76,11 +76,11 @@ export const useAddressListForm = ({
 	const onAddressUpdateSuccess = async (address: OptionalAddress) =>
 		addressListUpdate(
 			address,
-			addressList.map((existingAddress) => (existingAddress.id === address?.id ? address : existingAddress)),
+			addressList?.map((existingAddress) => (existingAddress.id === address?.id ? address : existingAddress)) || [],
 		);
 
 	const onAddressDeleteSuccess = (id: string) =>
-		addressListUpdate(addressList[0], addressList.filter(getByUnmatchingId(id)));
+		addressListUpdate(addressList?.[0], addressList?.filter(getByUnmatchingId(id)) || []);
 
 	const handleDefaultAddressSet = useCallback(async () => {
 		const isSelectedAddressSameAsCheckout =
